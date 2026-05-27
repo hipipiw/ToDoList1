@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_dialog">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tambah Tugas Baru"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/brown_text"
+        android:fontFamily="@font/montserrat"/>
+
+    <EditText
+        android:id="@+id/edtTask"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Nama Tugas"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_edittext"
+        android:padding="14dp"
+        android:fontFamily="@font/montserrat"/>
+
+    <EditText
+        android:id="@+id/edtDeadline"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Deadline"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_edittext"
+        android:padding="14dp"
+        android:fontFamily="@font/montserrat"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="SIMPAN"
+        android:textStyle="bold"
+        android:textColor="@color/brown_text"
+        android:fontFamily="@font/montserrat"
+        android:background="@drawable/bg_button"
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/edtDeadline"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Deadline"
+        android:focusable="false"
+        android:clickable="true"
+        android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+        android:background="@drawable/bg_edittext"
+        android:padding="14dp"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="14dp"/>
+</LinearLayout>
