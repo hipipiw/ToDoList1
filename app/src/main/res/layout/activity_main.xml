@@ -6,150 +6,168 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/pink_bg"
+    android:background="#F9D7DC"
     tools:context=".MainActivity">
 
-    <!-- HEADER PINK -->
+    <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:padding="16dp">
+        android:padding="20dp"
+        android:gravity="center">
 
+        <!-- LOGO -->
         <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:src="@drawable/tickly_logo"/>
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            android:src="@drawable/tickly_logo"
+            android:layout_marginTop="10dp"/>
 
+        <!-- TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Daftar Tugas"
-            android:textSize="34sp"
+            android:textColor="#6B3F35"
             android:textStyle="bold"
-            android:textColor="@color/brown_text"
+            android:textSize="32sp"
             android:fontFamily="@font/montserrat"
             android:layout_marginTop="10dp"/>
 
-        <!-- CARD STATS -->
+        <!-- STATS -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="25dp"
+            android:weightSum="3">
 
             <!-- TOTAL -->
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="125dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/bg_stats"
-                android:layout_margin="5dp">
+                android:layout_margin="3dp"
+                android:elevation="3dp">
 
                 <TextView
                     android:id="@+id/txtTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="32sp"
+                    android:textColor="#007BFF"
+                    android:textSize="38sp"
                     android:textStyle="bold"
-                    android:textColor="@color/blue"
                     android:fontFamily="@font/montserrat"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Tugas"
-                    android:textSize="14sp"
+                    android:text="Total\nTugas"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="#666666"
-                    android:fontFamily="@font/montserrat"/>
+                    android:textColor="#4A4A4A"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_marginTop="6dp"/>
             </LinearLayout>
 
             <!-- PENDING -->
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="125dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/bg_stats"
-                android:layout_margin="5dp">
+                android:layout_margin="3dp"
+                android:elevation="3dp">
 
                 <TextView
                     android:id="@+id/txtPending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="32sp"
+                    android:textColor="#FF3B30"
+                    android:textSize="38sp"
                     android:textStyle="bold"
-                    android:textColor="@color/red"
                     android:fontFamily="@font/montserrat"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Belum Selesai"
-                    android:textSize="14sp"
+                    android:text="Belum\nSelesai"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="#666666"
-                    android:fontFamily="@font/montserrat"/>
+                    android:textColor="#4A4A4A"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_marginTop="4dp"/>
             </LinearLayout>
 
             <!-- DONE -->
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="125dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/bg_stats"
-                android:layout_margin="5dp">
+                android:layout_margin="3dp"
+                android:elevation="3dp">
 
                 <TextView
                     android:id="@+id/txtDone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:text="0"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/green"
-                    android:fontFamily="@font/montserrat"/>
+                    android:textColor="#34C759"
+                    android:textSize="38sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Selesai"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="#666666"
-                    android:fontFamily="@font/montserrat"/>
+                    android:textColor="#4A4A4A"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_marginTop="12dp"/>
             </LinearLayout>
 
         </LinearLayout>
 
+        <!-- BUTTON -->
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="50dp"
             android:text="+ TAMBAH TUGAS BARU"
+            android:textColor="#6B3F35"
             android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="@color/brown_text"
+            android:textSize="16sp"
             android:fontFamily="@font/montserrat"
             android:background="@drawable/bg_button"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="18dp"/>
     </LinearLayout>
 
-    <!-- AREA PUTIH -->
+    <!-- CONTENT PUTIH -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_white_top"
+        android:orientation="vertical"
         android:padding="16dp">
 
         <androidx.recyclerview.widget.RecyclerView
