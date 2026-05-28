@@ -1,65 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_rounded_card"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:background="@drawable/bg_dialog">
+    android:padding="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tambah Tugas Baru ✨"
+            android:textColor="@color/text_dark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvCloseTaskDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="✕"
+            android:textColor="@color/text_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:padding="2dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="@color/pink_primary"
+            android:gravity="center"
+            android:text="📝"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/etTaskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_filter_capsule"
+            android:backgroundTint="#FDF8F9"
+            android:hint="Judul tugas..."
+            android:paddingHorizontal="16dp"
+            android:textSize="14sp"
+            android:inputType="textCapSentences" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tambah Tugas Baru"
-        android:textSize="22sp"
+        android:text="DESKRIPSI TUGAS"
+        android:textColor="@color/text_light"
+        android:textSize="11sp"
         android:textStyle="bold"
-        android:textColor="@color/brown_text"
-        android:fontFamily="@font/montserrat"/>
+        android:layout_marginTop="16dp"/>
 
     <EditText
-        android:id="@+id/edtTask"
+        android:id="@+id/etTaskDesc"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_edittext"
-        android:fontFamily="@font/montserrat"
-        android:hint="Nama Tugas"
-        android:padding="14dp"
-        android:textStyle="bold" />
+        android:layout_height="46dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_filter_capsule"
+        android:backgroundTint="#FDF8F9"
+        android:hint="Deskripsi singkat tugas..."
+        android:paddingHorizontal="16dp"
+        android:textSize="14sp"
+        android:inputType="textCapSentences" />
 
-    <EditText
-        android:id="@+id/edtDeadline"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/bg_edittext"
-        android:fontFamily="@font/montserrat"
-        android:hint="Deadline"
-        android:padding="14dp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="SIMPAN"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PILIH KATEGORI"
+        android:textColor="@color/text_light"
+        android:textSize="11sp"
         android:textStyle="bold"
-        android:textColor="@color/brown_text"
-        android:fontFamily="@font/montserrat"
-        android:background="@drawable/bg_button"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="16dp"/>
 
-    <EditText
-        android:id="@+id/edtDeadline"
+    <Spinner
+        android:id="@+id/spinnerCategory"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Deadline"
-        android:focusable="false"
-        android:clickable="true"
-        android:drawableEnd="@android:drawable/ic_menu_my_calendar"
-        android:background="@drawable/bg_edittext"
-        android:padding="14dp"
-        android:fontFamily="@font/montserrat"
-        android:layout_marginTop="14dp"/>
+        android:layout_height="46dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_filter_capsule"
+        android:backgroundTint="#FDF8F9"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BATAS TANGGAL"
+        android:textColor="@color/text_light"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/tvTaskDate"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_filter_capsule"
+        android:backgroundTint="#FDF8F9"
+        android:gravity="center_vertical"
+        android:hint="🗓️ Klik untuk pilih tanggal"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/text_dark"
+        android:textSize="14sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSimpan"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_button_bold"
+        android:text="Simpan Tugas"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textAllCaps="false"/>
 </LinearLayout>

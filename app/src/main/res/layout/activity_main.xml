@@ -1,180 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F9D7DC"
-    tools:context=".MainActivity">
+    android:background="@color/pink_light"
+    android:fitsSystemWindows="true">
 
-    <!-- HEADER -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:gravity="center">
+        app:layout_constraintGuide_percent="0.05" />
 
-        <!-- LOGO -->
-        <ImageView
-            android:layout_width="210dp"
-            android:layout_height="210dp"
-            android:src="@drawable/tickly_logo"
-            android:layout_marginTop="10dp"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
-        <!-- TITLE -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Daftar Tugas"
-            android:textColor="#6B3F35"
-            android:textStyle="bold"
-            android:textSize="32sp"
-            android:fontFamily="@font/montserrat"
-            android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:paddingVertical="16dp"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+        app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- STATS -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@null"
+                android:src="@drawable/tickly_logo"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            <TextView
+                android:id="@+id/tvPercentageBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_filter_capsule"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:text="🌸 0% done"
+                android:textColor="@color/pink_primary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="25dp"
-            android:weightSum="3">
-
-            <!-- TOTAL -->
-            <LinearLayout
+            android:layout_height="54dp"
+            android:layout_marginVertical="12dp"
+            android:background="@drawable/bg_rounded_card"
+            android:backgroundTint="#F0F0F0"
+            android:padding="4dp"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTabTugas"
                 android:layout_width="0dp"
-                android:layout_height="125dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_stats"
-                android:layout_margin="3dp"
-                android:elevation="3dp">
-
-                <TextView
-                    android:id="@+id/txtTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="#007BFF"
-                    android:textSize="38sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/montserrat"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total\nTugas"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#4A4A4A"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:layout_marginTop="6dp"/>
-            </LinearLayout>
-
-            <!-- PENDING -->
-            <LinearLayout
+                android:background="@drawable/bg_tab_indicator"
+                android:text="📋 Tugas"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTabKalender"
                 android:layout_width="0dp"
-                android:layout_height="125dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_stats"
-                android:layout_margin="3dp"
-                android:elevation="3dp">
-
-                <TextView
-                    android:id="@+id/txtPending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="#FF3B30"
-                    android:textSize="38sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/montserrat"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Belum\nSelesai"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#4A4A4A"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:layout_marginTop="4dp"/>
-            </LinearLayout>
-
-            <!-- DONE -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="125dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_stats"
-                android:layout_margin="3dp"
-                android:elevation="3dp">
-
-                <TextView
-                    android:id="@+id/txtDone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:text="0"
-                    android:textColor="#34C759"
-                    android:textSize="38sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Selesai"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#4A4A4A"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:layout_marginTop="12dp"/>
-            </LinearLayout>
-
+                android:background="@android:color/transparent"
+                android:text="📅 Kalender"
+                android:textAllCaps="false"
+                android:textColor="@color/text_light"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- BUTTON -->
-        <Button
-            android:id="@+id/btnAdd"
+        <HorizontalScrollView
+            android:id="@+id/scrollCategories"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="+ TAMBAH TUGAS BARU"
-            android:textColor="#6B3F35"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:fontFamily="@font/montserrat"
-            android:background="@drawable/bg_button"
-            android:layout_marginTop="18dp"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginBottom="8dp">
+            <LinearLayout
+                android:id="@+id/layoutCategoriesBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
 
-    <!-- CONTENT PUTIH -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_white_top"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerTask"
+        <LinearLayout
+            android:id="@+id/containerKalender"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rounded_card"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/btnPrevMonth"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_media_previous"
+                    app:tint="@color/pink_primary"
+                    android:contentDescription="@null"/>
+                <TextView
+                    android:id="@+id/tvMonthYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Mei 2026"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+                <ImageButton
+                    android:id="@+id/btnNextMonth"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_media_next"
+                    app:tint="@color/pink_primary"
+                    android:contentDescription="@null"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:weightSum="7">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Min" android:gravity="center" android:textColor="@color/pink_primary" android:textSize="12sp" android:textStyle="bold"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sen" android:gravity="center" android:textColor="@color/text_light" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sel" android:gravity="center" android:textColor="@color/text_light" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Rab" android:gravity="center" android:textColor="@color/text_light" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Kam" android:gravity="center" android:textColor="@color/text_light" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Jum" android:gravity="center" android:textColor="@color/text_light" android:textSize="12sp"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sab" android:gravity="center" android:textColor="@color/text_light" android:textSize="12sp"/>
+            </LinearLayout>
+
+            <GridView
+                android:id="@+id/calendarGridView"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_marginTop="4dp"
+                android:numColumns="7"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="2dp"
+                android:stretchMode="columnWidth"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+            <LinearLayout
+                android:id="@+id/headerTanggalSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@android:drawable/ic_menu_my_calendar"
+                    app:tint="@color/pink_primary"
+                    android:contentDescription="@null" />
+                <TextView
+                    android:id="@+id/tvSelectedDateDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Semua Tugas"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnTambahTugas"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_button_bold"
+                android:paddingHorizontal="16dp"
+                android:text="+ Tugas"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvTaskStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
+            android:text="0 tugas"
+            android:textColor="@color/text_light"
+            android:textSize="12sp"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvActiveTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"/>
+
+                <RelativeLayout
+                    android:id="@+id/layoutHeaderSelesaiContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:id="@+id/tvHeaderSelesai"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SELESAI"
+                        android:textColor="@color/pink_primary"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"/>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnClearSelesai"
+                        android:layout_width="wrap_content"
+                        android:layout_height="26dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_filter_capsule"
+                        android:backgroundTint="#F5F5F5"
+                        android:paddingHorizontal="12dp"
+                        android:text="Clear"
+                        android:textAllCaps="false"
+                        android:textColor="@color/text_light"
+                        android:textSize="10sp"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCompletedTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
