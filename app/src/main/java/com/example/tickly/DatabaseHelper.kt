@@ -144,6 +144,26 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return list
     }
 
+    // Fungsi untuk export lengkap dengan ID
+    fun getAllCategoriesFull(): List<Map<String, String>> {
+        val list = ArrayList<Map<String, String>>()
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_CATEGORIES", null)
+        if (cursor.moveToFirst()) {
+            do {
+                val map = HashMap<String, String>()
+                map["id"] = cursor.getInt(cursor.getColumnIndexOrThrow(COL_CAT_ID)).toString()
+                map["name"] = cursor.getString(cursor.getColumnIndexOrThrow(COL_CAT_NAME))
+                map["emoji"] = cursor.getString(cursor.getColumnIndexOrThrow(COL_CAT_EMOJI)) ?: ""
+                map["color"] = cursor.getString(cursor.getColumnIndexOrThrow(COL_CAT_COLOR)) ?: ""
+                list.add(map)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return list
+    }
+
     // --- TAMBAHAN BARU UNTUK HALAMAN SETTINGS (CRUD KATEGORI & AUDIT LOG) ---
 
     // 1. Fungsi Menghapus Kategori

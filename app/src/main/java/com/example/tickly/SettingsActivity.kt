@@ -8,6 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.content.ContentValues
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.pdf.PdfDocument
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
+import java.io.OutputStream
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +58,11 @@ class SettingsActivity : AppCompatActivity() {
 
         loadManageCategories()
         loadAllTasksLog()
+
+        val btnExportDB = findViewById<Button>(R.id.btnExportDB)
+        btnExportDB.setOnClickListener {
+            exportDatabaseToPDF()
+        }
     }
 
     private fun loadManageCategories() {
@@ -192,5 +206,183 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
         dialog.show()
+    }
+
+    private fun exportDatabaseToPDF() {
+        val pdfDocument = PdfDocument()
+        val paint = Paint()
+        val titlePaint = Paint()
+        val tableHeaderPaint = Paint()
+        val linePaint = Paint()
+
+        linePaint.style = Paint.Style.STROKE
+        linePaint.strokeWidth = 1f
+        linePaint.color = Color.BLACK
+
+        tableHeaderPaint.textSize = 10f
+        tableHeaderPaint.isFakeBoldText = true
+
+        paint.textSize = 10f
+
+        var pageNumber = 1
+        var pageInfo = PdfDocument.PageInfo.Builder(595, 842, pageNumber).create()
+        var page = pdfDocument.startPage(pageInfo)
+        var canvas = page.canvas
+
+        // Header Utama
+        titlePaint.textSize = 18f
+        titlePaint.isFakeBoldText = true
+        canvas.drawText("DATABASE REPORT: TICKLY", 50f, 50f, titlePaint)
+        
+        paint.color = Color.GRAY
+        val dateString = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
+        canvas.drawText("Generated on: $dateString", 50f, 70f, paint)
+        paint.color = Color.BLACK
+
+        var yPos = 110f
+        
+        // --- TABEL KATEGORI ---
+        titlePaint.textSize = 14f
+        canvas.drawText("Table: categories", 50f, yPos, titlePaint)
+        yPos += 15f
+
+        val catCols = arrayOf("ID", "NAME", "EMOJI", "COLOR")
+        val catWidths = floatArrayOf(40f, 150f, 60f, 100f)
+        var xPos = 50f
+
+        // Header Tabel
+        canvas.drawRect(50f, yPos, 50f + catWidths.sum(), yPos + 20f, linePaint)
+        for (i in catCols.indices) {
+            canvas.drawText(catCols[i], xPos + 5f, yPos + 14f, tableHeaderPaint)
+            xPos += catWidths[i]
+        }
+        yPos += 20f
+
+        val categories = dbHelper.getAllCategoriesFull()
+        for (cat in categories) {
+            xPos = 50f
+            canvas.drawRect(50f, yPos, 50f + catWidths.sum(), yPos + 20f, linePaint)
+            
+            canvas.drawText(cat["id"] ?: "", xPos + 5f, yPos + 14f, paint)
+            xPos += catWidths[0]
+            canvas.drawText(cat["name"] ?: "", xPos + 5f, yPos + 14f, paint)
+            xPos += catWidths[1]
+            canvas.drawText(cat["emoji"] ?: "", xPos + 5f, yPos + 14f, paint)
+            xPos += catWidths[2]
+            canvas.drawText(cat["color"] ?: "", xPos + 5f, yPos + 14f, paint)
+            
+            yPos += 20f
+        }
+
+        yPos += 40f
+
+        // --- TABEL TUGAS ---
+        if (yPos > 750f) {
+            pdfDocument.finishPage(page)
+            pageNumber++
+            pageInfo = PdfDocument.PageInfo.Builder(595, 842, pageNumber).create()
+            page = pdfDocument.startPage(pageInfo)
+            canvas = page.canvas
+            yPos = 50f
+        }
+
+        titlePaint.textSize = 14f
+        canvas.drawText("Table: tasks", 50f, yPos, titlePaint)
+        yPos += 15f
+
+        val taskCols = arrayOf("ID", "TITLE", "DATE", "CAT", "STATUS")
+        val taskWidths = floatArrayOf(30f, 180f, 80f, 100f, 80f)
+        
+        // Header Tabel
+        xPos = 50f
+        canvas.drawRect(50f, yPos, 50f + taskWidths.sum(), yPos + 20f, linePaint)
+        for (i in taskCols.indices) {
+            canvas.drawText(taskCols[i], xPos + 5f, yPos + 14f, tableHeaderPaint)
+            xPos += taskWidths[i]
+        }
+        yPos += 20f
+
+        val tasks = dbHelper.getAllTasksRaw()
+        for (task in tasks) {
+            if (yPos > 780f) {
+                pdfDocument.finishPage(page)
+                pageNumber++
+                pageInfo = PdfDocument.PageInfo.Builder(595, 842, pageNumber).create()
+                page = pdfDocument.startPage(pageInfo)
+                canvas = page.canvas
+                yPos = 50f
+                
+                // Redraw Header on new page
+                xPos = 50f
+                canvas.drawRect(50f, yPos, 50f + taskWidths.sum(), yPos + 20f, linePaint)
+                for (i in taskCols.indices) {
+                    canvas.drawText(taskCols[i], xPos + 5f, yPos + 14f, tableHeaderPaint)
+                    xPos += taskWidths[i]
+                }
+                yPos += 20f
+            }
+
+            xPos = 50f
+            canvas.drawRect(50f, yPos, 50f + taskWidths.sum(), yPos + 20f, linePaint)
+            
+            canvas.drawText(task.id.toString(), xPos + 5f, yPos + 14f, paint)
+            xPos += taskWidths[0]
+            
+            val titleTrim = if (task.title.length > 30) task.title.substring(0, 27) + "..." else task.title
+            canvas.drawText(titleTrim, xPos + 5f, yPos + 14f, paint)
+            xPos += taskWidths[1]
+            
+            canvas.drawText(task.date, xPos + 5f, yPos + 14f, paint)
+            xPos += taskWidths[2]
+            
+            canvas.drawText(task.category, xPos + 5f, yPos + 14f, paint)
+            xPos += taskWidths[3]
+            
+            canvas.drawText(if (task.isCompleted) "Done" else "Pending", xPos + 5f, yPos + 14f, paint)
+            
+            yPos += 20f
+        }
+
+        pdfDocument.finishPage(page)
+        savePdfToDownloads(pdfDocument)
+    }
+
+    private fun savePdfToDownloads(pdfDocument: PdfDocument) {
+        val fileName = "Tickly_Export_${System.currentTimeMillis()}.pdf"
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val resolver = contentResolver
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                }
+
+                val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+                uri?.let {
+                    val outputStream: OutputStream? = resolver.openOutputStream(it)
+                    outputStream?.let { os ->
+                        pdfDocument.writeTo(os)
+                        os.close()
+                        Toast.makeText(this, "PDF berhasil disimpan di folder Download", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } else {
+                val targetFile = java.io.File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    fileName
+                )
+                val os = java.io.FileOutputStream(targetFile)
+                pdfDocument.writeTo(os)
+                os.close()
+                Toast.makeText(this, "PDF berhasil disimpan: ${targetFile.absolutePath}", Toast.LENGTH_LONG).show()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "Gagal export PDF: ${e.message}", Toast.LENGTH_SHORT).show()
+        } finally {
+            pdfDocument.close()
+        }
     }
 }

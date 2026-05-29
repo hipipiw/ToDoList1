@@ -113,6 +113,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnExportDB"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/bg_filter_capsule"
+                    android:backgroundTint="#E0E0E0"
+                    android:text="📤 Export Database"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"/>
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
